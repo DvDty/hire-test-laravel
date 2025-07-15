@@ -93,7 +93,7 @@ class MaintenanceRequestController extends Controller
 
             DB::commit();
 
-            return response()->json(['success' => true, 'data' => $maintenanceRequest, 201]);
+            return response()->json(['success' => true, 'data' => $maintenanceRequest], 201);
         } catch (Throwable $exception) {
             DB::rollBack();
 
