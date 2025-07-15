@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Enums\MaintenanceRequestStatus;
 use App\Enums\TirePosition;
+use App\Jobs\SendMaintenanceMessage;
+use App\Mail\ConfirmationEmail;
 use App\Models\Car;
 use App\Models\MaintenanceRequest;
 use App\Models\Tire;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class MaintenanceService
 {
@@ -31,6 +34,12 @@ class MaintenanceService
             'status' => MaintenanceRequestStatus::PENDING,
             'scheduled_date' => $scheduledDate,
         ]);
+
+        dispatch(new SendMaintenanceMessage($maintenanceRequest));
+
+        if ($user) {
+            Mail::to($user)->queue(new ConfirmationEmail());
+        }
 
         Log::info('Maintenance request created', ['Maintenance Request ID' => $maintenanceRequest->id]);
 

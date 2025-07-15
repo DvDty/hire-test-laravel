@@ -36,7 +36,7 @@ class MaintenanceRequestController extends Controller
                     $car,
                     $user,
                     Arr::get($data, 'scheduled_date'),
-                    Arr::get($data, 'tire_replacements', []),
+                    collect(Arr::get($data, 'tire_replacements', [])),
                 );
 
             DB::commit();
