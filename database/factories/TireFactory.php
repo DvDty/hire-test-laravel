@@ -26,4 +26,4 @@ class TireFactory extends Factory
             'stock' => $this->faker->numberBetween(0, 50),
         ];
     }
-} 
+}

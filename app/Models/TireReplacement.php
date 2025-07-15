@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TireReplacement extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'car_id',
         'tire_id',

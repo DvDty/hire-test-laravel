@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use App\Enums\MaintenanceRequestStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MaintenanceRequest extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'car_id',
         'user_id',
