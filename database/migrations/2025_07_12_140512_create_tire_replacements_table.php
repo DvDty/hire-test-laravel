@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tire_replacements', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(Car::class);
-            $table->foreignIdFor(Tire::class);
-            $table->foreignIdFor(MaintenanceRequest::class);
+            $table->foreignIdFor(Car::class)->constrained();
+            $table->foreignIdFor(Tire::class)->constrained();
+            $table->foreignIdFor(MaintenanceRequest::class)->constrained();
 
             $table->enum('position', ['front_left', 'front_right', 'rear_left', 'rear_right']);
 

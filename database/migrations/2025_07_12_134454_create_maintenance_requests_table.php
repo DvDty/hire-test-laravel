@@ -13,11 +13,10 @@ return new class extends Migration
         Schema::create('maintenance_requests', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(Car::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Car::class)->constrained();
+            $table->foreignIdFor(User::class)->nullable()->constrained();
 
-            $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending');
-            $table->text('description');
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->dateTime('scheduled_date')->nullable();
             $table->dateTime('completed_date')->nullable();
 
