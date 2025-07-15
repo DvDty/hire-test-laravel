@@ -36,17 +36,17 @@ class MaintenanceRequestStore extends FormRequest
                 }
 
                 $data = $validator->getData();
-                $replacements = $data['tire_replacements'];
+                $replacements = collect($data['tire_replacements']);
 
-                $tireIds = collect($replacements)->pluck('tire_id')->filter()->unique();
+                $groupedByTire = $replacements->groupBy('tire_id');
 
                 /** @var Collection<int, Tire> $tires */
-                $tires = Tire::whereIn('id', $tireIds)->get()->keyBy('id');
+                $tires = Tire::whereIn('id', $replacements->pluck('tire_id'))->get()->keyBy('id');
 
                 foreach ($replacements as $index => $replacement) {
                     $tire = $tires->get($replacement['tire_id']);
 
-                    if (!$tire->hasStock()) {
+                    if ($tire->stock < count($groupedByTire[$replacement['tire_id']])) {
                         $validator->errors()->add(
                             "tire_replacements.$index.tire_id",
                             'Selected tire is out of stock.',
