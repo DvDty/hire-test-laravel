@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tire extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'brand',
         'model',

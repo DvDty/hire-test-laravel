@@ -4,12 +4,13 @@ namespace Database\Factories;
 
 use App\Models\Brand;
 use App\Models\CarModel;
+use App\Models\EngineType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CarModel>
  */
-class ModeleFactory extends Factory
+class CarModelFactory extends Factory
 {
     protected $model = CarModel::class;
 
@@ -23,7 +24,7 @@ class ModeleFactory extends Factory
         return [
             'nomModel' => $this->faker->word,
             'brand_id' => Brand::factory(),
-            'engine' => $this->faker->randomElement(['Petrol', 'Hybrid', 'Electric']),
+            'engine_type_id' => EngineType::factory(),
         ];
     }
 }
