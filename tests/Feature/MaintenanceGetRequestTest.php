@@ -65,9 +65,7 @@ class MaintenanceGetRequestTest extends TestCase
 
         $uri = route('maintenance-requests.index', [
             'car_brand' => Brand::first()->name,
-            // 'car_model' => 'Corolla',
-            'plate_number' => '12',
-            'username' => 'John',
+            'plate_number' => 'A',
         ]);
 
         $this->getJson($uri)->assertSuccessful();
