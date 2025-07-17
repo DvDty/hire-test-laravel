@@ -50,3 +50,13 @@ services:
             PGADMIN_DEFAULT_PASSWORD: password
         volumes:
             - ./servers.json:/pgadmin4/servers.json
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - "5672:5672" # Server
+            - "15672:15672" # UI
+        environment:
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest

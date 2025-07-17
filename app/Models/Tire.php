@@ -10,10 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tire extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'brand',
         'model',
         'type',
+        'stock',
     ];
 
 
@@ -44,5 +47,25 @@ class Tire extends Model
     public function carRearTire(): HasMany
     {
         return $this->hasMany(Car::class, "rear_tire_id");
+    }
+
+    public function tireReplacements(): HasMany
+    {
+        return $this->hasMany(TireReplacement::class);
+    }
+
+    public function hasStock(int $quantity = 1): bool
+    {
+        return $this->stock >= $quantity;
+    }
+
+    public function deductStock(int $quantity = 1): bool
+    {
+        if ($this->hasStock($quantity)) {
+            $this->decrement('stock', $quantity);
+            return true;
+        }
+
+        return false;
     }
 }
